@@ -1,0 +1,1 @@
+api_token_paystack = "sk_test_ed03e436d42cfd4aa77345972fe333f358cbddd1"
