@@ -1,6 +1,6 @@
 import requests
 import json
-from secrets import api_token_paystack
+from ._secrets import api_token_paystack
 
 """Note to self, i'm not true with this, i need to verify with the correct endpoint
 that is "https://api.paystack.co/transaction/verify/" +str(reference), headers=headers_paystack)
@@ -76,28 +76,31 @@ class Base:
             "https://api.paystack.co/transaction/initialize", headers=self.headers_paystack, data=json.dumps(data))
 
         print()
+        """
         for i, v in res.json()['data'].items():
             print(i, v)
             if i == 'reference':
-                """this function tells us of the transaction was successful"""
+                
                 #confirm_payment(str(v))
                 
                 self.reference = v
                 print(self.reference)
-
+        """
+        print(res.json())
+        
         for keys, values in res.json()['data'].items():
             if keys == 'authorization_url':
                 url = values
-                print(url)
-
+                #print(url)
                 return url
+        
 
 
-    def confirm_payment(self):
+    def confirm_payment(self, reference):
         res = requests.get(
-            "https://api.paystack.co/transaction/verify/" + str(self.reference), headers=self.headers_paystack)
+            "https://api.paystack.co/transaction/verify/" + str(reference), headers=self.headers_paystack)
         print('this is confirmed')
-        print(res.json())
+        return res.json()
 
 
     def transaction_list(self):
@@ -105,5 +108,3 @@ class Base:
             "https://api.paystack.co/transaction/totals", headers=self.headers_paystack)
         print(res.json())
         return res.json()
-
-

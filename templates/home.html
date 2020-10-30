@@ -3,17 +3,17 @@
 {% endblock title %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-    hi {{user.username}}!!
+{% if user.is_authenticated %}
+hi {{name_user}}!!<a href="{% url 'logout' %}">Log out</a>
 
-    {% else %}
 
-    <p>You are not logged in</p>
+{% else %}
 
-    <a href="{% url 'login' %}" >Log In</a>
-    <a href="{% url 'signup' %}" >Sign Up</a>
+<p>You are not logged in</p>
 
-    {% endif %}
-    
+<a href="{% url 'login' %}">Log In</a>
+<a href="{% url 'signup' %}">Sign Up</a>
+
+{% endif %}
 {% endblock  %}
 
